@@ -1,6 +1,6 @@
 import JobItem from './job-item';
 
-export default function JobList({ jobs }) {
+export default function JobList({ jobs }: { jobs: Job[] }) {
   return (
     <ul className="box">
       {jobs.map((job) => (
