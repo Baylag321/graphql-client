@@ -6,11 +6,11 @@ interface User {
   email: string;
 }
 
-interface LoginpageProps {
+interface LoginPageProps {
   setLoggedUser: (user: User | null) => void;
 }
 
-export default function Loginpage({ setLoggedUser }: LoginpageProps) {
+export default function Loginpage({ setLoggedUser }: LoginPageProps) {
   const [email, setEmail] = useState('baya@gmail.com');
   const [password, setPassword] = useState('1234');
   const [error, setError] = useState(false);
