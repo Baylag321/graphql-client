@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 
-const API_URL = 'http://localhost:9000';
+const API_URL: string = 'http://localhost:9000';
 
 interface MyJwtPayload {
     sub: string;
@@ -10,7 +10,7 @@ interface MyJwtPayload {
 }
 
 export async function login(email: string, password: string) {
-    const response = await fetch(API_URL + '/api/login', {
+    const response = await fetch(API_URL + '/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
