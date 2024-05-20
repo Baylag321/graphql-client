@@ -1,31 +1,36 @@
 import { useParams } from 'react-router';
-import { jobs } from '../pages/lib/data';
 import { Link } from 'react-router-dom';
+import { getJobById } from '../graphql/query.ts';
+import { useState, useEffect } from 'react';
 
 interface Job {
-    id: string;
-    title: string;
-    company: string;
+    ID: string;
+    TITLE: string;
+    DATE: string;
+    DESCRIPTION: string;
+    COMPANY: { NAME: string, ID: string };
 }
 
 export default function JobPage() {
     const { jobId } = useParams<{ jobId: string }>();
-    const job = jobs.find((job: Job) => job.id === jobId);
+    const [job, setJob] = useState<Job | null>(null);
 
-    if (!job) {
-        return <div>Job not found</div>;
-    }
+    useEffect(() => {
+        getJobById(jobId).then(setJob);
+    }, [jobId]);
+
+    if (!job) return <div>Ачааллаж байна...</div>;
 
     return (
         <div>
-            <h1 className="title is-3">{job.title}</h1>
+            <h1 className='title is-3'>{job.TITLE}</h1>
 
-            <Link to={`/company/${job.company.id}`}>
-                <h2 className="subtitle is-4">{job.company.name}</h2>
+            <Link to={`/company/${job.COMPANY.ID}`}>
+                <h2 className='subtitle is-4'>{job.COMPANY.NAME}</h2>
             </Link>
-            <div className="box">
-                <div className="block has-text-gray">Нийтэлсэн: {job.date}</div>
-                <div className="block">{job.description}</div>
+            <div className='box'>
+                <div className='block has-text-gray'>Нийтэлсэн: {job.DATE}</div>
+                <div className='block'>{job.DESCRIPTION}</div>
             </div>
         </div>
     );
