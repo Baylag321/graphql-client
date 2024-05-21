@@ -74,7 +74,11 @@ export default function JobPage({ loggedUser }: JobPageProps) {
                 <div className='block'>{job.DESCRIPTION}</div>
             </div>
             {loggedUser && job.COMPANY.ID === loggedUser.companyId && (
-                <button className='button is-light is-danger' onClick={triggerModal}>Устгах</button>
+                <>
+                    <button className='button is-danger' onClick={triggerModal}>Устгах</button>
+                    {' '}
+                    <button className='button is-link' onClick={() => navigate(`/jobs/edit/${jobId}`)}>Засах</button>
+                </>
             )}
         </div>
     );

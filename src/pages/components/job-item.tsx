@@ -4,7 +4,7 @@ interface Job {
     ID: string;
     TITLE: string;
     DATE: string;
-    COMPANY: { NAME: string };
+    COMPANY: { NAME: string, DESCRIPTION: string };
 }
 
 export default function JobItem({ job }: { job: Job }) {
@@ -13,7 +13,7 @@ export default function JobItem({ job }: { job: Job }) {
             <div className='media-left has-text-gray'>{job.DATE}</div>
             <div className='media-content'>
                 <Link to={`/jobs/${job.ID}`} className='has-text-gray'>
-                    {`${job.TITLE} - ${job.COMPANY.NAME}`}
+                    {`${job.TITLE}`}
                 </Link>
             </div>
         </li>

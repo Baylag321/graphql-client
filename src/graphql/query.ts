@@ -1,11 +1,33 @@
 import { GraphQLClient, gql } from 'graphql-request';
 
-const client = new GraphQLClient('http://localhost:9000/graphql');
+const client = new GraphQLClient('http://localhost:9000/graphql', {
+    headers: () => {
+        const token = localStorage.getItem('token');
+        return {
+            authorization: token ? `Bearer ${token}` : '',
+        };
+    },
+});
+
+export async function updateJob(ID, TITLE, DESCRIPTION) {
+    const mutation = gql`
+        mutation updateJob($input: UpdateJobInput!) {
+            job: updateJob(input: $input) {
+                ID
+                DESCRIPTION
+                TITLE
+            }
+        }
+    `;
+
+    const { job } = await client.request(mutation, { input: { ID, TITLE, DESCRIPTION } });
+    return job;
+}
 
 export async function deleteJob(ID) {
     const mutation = gql`
         mutation deleteJob($id: String!) {
-            deleteJob(id: $id) {
+            job:deleteJob(id: $id) {
                 ID
                 DESCRIPTION
                 TITLE
