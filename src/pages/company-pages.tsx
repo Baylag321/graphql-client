@@ -3,22 +3,31 @@ import { getCompanyById } from '../graphql/query.ts';
 import { useState, useEffect } from 'react';
 import JobList from './components/job-list.tsx';
 
-interface Company {
-    ID: string;
-    NAME: string;
-    DESCRIPTION: string;
-    JOBS: { ID: string, TITLE: string, DESCRIPTION: string }[];
-}
-
 export default function CompanyPage() {
     const { companyId } = useParams<{ companyId: string }>();
-    const [company, setCompany] = useState<Company | null>(null);
+    const [state, setState] = useState({
+        loading: true,
+        error: false,
+        errorMessage: null,
+        company: null,
+    });
 
     useEffect(() => {
-        getCompanyById(companyId).then(setCompany);
+        getCompanyById(companyId).then(data => {
+            setState({ company: data, loading: false, error: false, errorMessage: null });
+        }).catch(err => {
+            setState({
+                company: null,
+                loading: false,
+                error: true,
+                errorMessage: err.response.errors[0].message,
+            });
+        });
     }, [companyId]);
 
-    if (!company) return <div>Ачааллаж байна...</div>;
+    const { loading, error, company, errorMessage } = state;
+    if (loading) return <div>Ачааллаж байна...</div>;
+    if (error) return <div className='box has-text-danger'>{errorMessage}! Дахин оролдно уу</div>;
 
     return <div>
         <h1 className='title'> {company.NAME}</h1>
