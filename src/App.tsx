@@ -7,23 +7,28 @@ import Navbar from './pages/components/navbar';
 import CreateJobPage from './pages/create-job-page';
 import LoginPage from './pages/login-page';
 
+type User = {
+    companyId: string;
+    email: string;
+};
+
 function App() {
-    const [loggedUser, setLoggedUser] = useState(null);
+    const [loggedUser, setLoggedUser] = useState<User | null>(null);
 
     return (
         <>
             <Navbar loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
-            <main className="section">
+            <main className='section'>
                 <Routes>
-                    <Route index path="/" element={<HomePage />} />
-                    <Route index path="/jobs/new" element={<CreateJobPage />} />
-                    <Route path="/jobs/:jobId" element={<JobPage />} />
+                    <Route index path='/' element={<HomePage />} />
+                    <Route index path='/jobs/new' element={<CreateJobPage />} />
+                    <Route path='/jobs/:jobId' element={<JobPage loggedUser={loggedUser} />} />
                     <Route
-                        path="/company/:companyId"
+                        path='/company/:companyId'
                         element={<CompanyPage />}
                     />
                     <Route
-                        path="/login"
+                        path='/login'
                         element={<LoginPage setLoggedUser={setLoggedUser} />}
                     />
                 </Routes>

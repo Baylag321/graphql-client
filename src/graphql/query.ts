@@ -2,6 +2,36 @@ import { GraphQLClient, gql } from 'graphql-request';
 
 const client = new GraphQLClient('http://localhost:9000/graphql');
 
+export async function deleteJob(ID) {
+    const mutation = gql`
+        mutation deleteJob($id: String!) {
+            deleteJob(id: $id) {
+                ID
+                DESCRIPTION
+                TITLE
+            }
+        }
+    `;
+
+    const { job } = await client.request(mutation, { id: ID });
+    return job;
+}
+
+export async function createJob(TITLE, DESCRIPTION) {
+    const mutation = gql`
+        mutation createJob($input: CreateJobInput!) {
+            job: createJob(input: $input) {
+                ID
+            }
+        }
+    `;
+
+    const { job } = await client.request(mutation, {
+        input: { TITLE, DESCRIPTION },
+    });
+    return job;
+}
+
 export async function getCompanyById(companyId) {
     const query = gql`
         query getCompany($companyId: ID!) {
