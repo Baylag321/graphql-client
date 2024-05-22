@@ -26,11 +26,21 @@ export async function login(email: string, password: string) {
     const { token } = await response.json();
 
     localStorage.setItem('token', token);
-    const data = jwtDecode<MyJwtPayload>(token);
+    return getLoggedUserFromToken();
+}
 
-    return {
-        id: data.sub,
-        email: data.email,
-        companyId: data.companyId,
-    };
+export function getLoggedUserFromToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+
+        const data = jwtDecode<MyJwtPayload>(token);
+
+        return {
+            id: data.sub,
+            email: data.email,
+            companyId: data.companyId,
+        };
+    }
+
+    return null;
 }

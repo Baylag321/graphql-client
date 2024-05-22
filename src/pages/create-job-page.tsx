@@ -1,32 +1,47 @@
 import React, { useState } from 'react';
-import { createJob } from '../graphql/query.ts';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { CREATE_JOB, GET_JOB_BY_ID } from '../graphql/query.ts';
 
 export default function CreateJobPage() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
 
+    const [mutate] = useMutation(CREATE_JOB);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const job = await createJob(title, description);
+        const {
+            data: { job },
+        } = await mutate({
+            variables: {
+                input: { TITLE: title, DESCRIPTION: description },
+            },
+            update: (cache, { data }) => {
+                cache.writeQuery({
+                    query: GET_JOB_BY_ID,
+                    data,
+                    variables: { jobId: data.job.ID },
+                }); // Update cache
+            },
+        });
 
         navigate(`/jobs/${job.ID}`);
     };
 
     return (
         <div>
-            <h1 className='title'>Шинээр зар нэмэх</h1>
-            <div className='box'>
-                <form action=''>
-                    <div className='field'>
-                        <div className='label'>Зарын гарчиг</div>
-                        <div className='control'>
+            <h1 className="title">Шинээр зар нэмэх</h1>
+            <div className="box">
+                <form action="">
+                    <div className="field">
+                        <div className="label">Зарын гарчиг</div>
+                        <div className="control">
                             <input
                                 value={title}
-                                type='text'
-                                className='input'
+                                type="text"
+                                className="input"
                                 onChange={(event) =>
                                     setTitle(event.target.value)
                                 }
@@ -34,12 +49,12 @@ export default function CreateJobPage() {
                         </div>
                     </div>
 
-                    <div className='field'>
-                        <label className='label'>Зарын дэлэгрэнгүй</label>
-                        <div className='control'>
+                    <div className="field">
+                        <label className="label">Зарын дэлэгрэнгүй</label>
+                        <div className="control">
                             <textarea
                                 value={description}
-                                className='textarea'
+                                className="textarea"
                                 onChange={(event) =>
                                     setDescription(event.target.value)
                                 }
@@ -48,11 +63,11 @@ export default function CreateJobPage() {
                         </div>
                     </div>
 
-                    <div className='field'>
-                        <div className='control'>
+                    <div className="field">
+                        <div className="control">
                             <button
                                 onClick={handleSubmit}
-                                className='button is-link'
+                                className="button is-link"
                             >
                                 Хадгалах
                             </button>
