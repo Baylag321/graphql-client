@@ -8,7 +8,7 @@ export default function CreateJobPage() {
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
 
-    const [mutate] = useMutation(CREATE_JOB);
+    const [mutate, result] = useMutation(CREATE_JOB);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -29,6 +29,8 @@ export default function CreateJobPage() {
 
         navigate(`/jobs/${job.ID}`);
     };
+
+    if (result.error) return <div>Алдаа: {result.error.message}</div>;
 
     return (
         <div>
@@ -65,9 +67,11 @@ export default function CreateJobPage() {
 
                     <div className="field">
                         <div className="control">
+                            {result.loading && <div>Түр хүлээнэ үү</div>}
                             <button
                                 onClick={handleSubmit}
                                 className="button is-link"
+                                disabled={result.loading}
                             >
                                 Хадгалах
                             </button>
