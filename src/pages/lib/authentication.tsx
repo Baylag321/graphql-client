@@ -4,19 +4,19 @@ const API_URL: string = 'http://localhost:9000';
 
 interface MyJwtPayload {
     sub: string;
-    email: string;
+    loginName: string;
     name: string;
     iat: number;
-    companyId: string;
+    emp_id: string;
 }
 
-export async function login(email: string, password: string) {
+export async function login(loginName: string, password: string) {
     const response = await fetch(API_URL + '/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ loginName, password }),
     });
 
     if (!response.ok) {
@@ -32,13 +32,11 @@ export async function login(email: string, password: string) {
 export function getLoggedUserFromToken() {
     const token = localStorage.getItem('token');
     if (token) {
-
         const data = jwtDecode<MyJwtPayload>(token);
 
         return {
-            id: data.sub,
-            email: data.email,
-            companyId: data.companyId,
+            emp_id: data.emp_id,
+            loginName: data.loginName,
         };
     }
 

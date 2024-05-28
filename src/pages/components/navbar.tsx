@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import StyledButton from '../../components/Button/Button';
 
 interface User {
     companyId: string;
@@ -20,28 +21,34 @@ export default function Navbar({ loggedUser, setLoggedUser }: NavbarProps) {
     };
 
     return (
-        <nav className='navbar'>
-            <div className='navbar-start'>
-                <Link to='/' className='navbar-item'>
-                    Зарууд
+        <nav className="navbar">
+            <div className="navbar-start">
+                <Link to="/" className="navbar-item">
+                    <StyledButton>Зарууд</StyledButton>
+                </Link>
+                <Link to="/jobs/table" className="navbar-item">
+                    Table
                 </Link>
             </div>
-            <div className='navbar-end'>
+            <div className="navbar-end">
                 {isLoggedIn ? (
                     <>
-                        <span className='navbar-item has-text-gray'>
+                        <span className="navbar-item has-text-gray">
                             {loggedUser?.email}
                         </span>
-                        <Link to='/jobs/new' className='navbar-item'>
+                        <Link to="/jobs/new" className="navbar-item">
                             Зар нэмэх
                         </Link>
-                        <a onClick={handleLogout} className='navbar-item'>
+                        <Link to="/jobs/table" className="navbar-item">
+                            Table
+                        </Link>
+                        <a onClick={handleLogout} className="navbar-item">
                             Гарах
                         </a>
                     </>
                 ) : (
                     <>
-                        <Link to='/login' className='navbar-item'>
+                        <Link to="/login" className="navbar-item">
                             Нэвтрэх
                         </Link>
                     </>
