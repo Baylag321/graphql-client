@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import StyledButton from '../common-components/Button/Button';
+import { Button } from 'antd';
 
 interface User {
     companyId: string;
@@ -24,7 +24,9 @@ export default function Navbar({ loggedUser, setLoggedUser }: NavbarProps) {
         <nav className="navbar">
             <div className="navbar-start">
                 <Link to="/" className="navbar-item">
-                    <StyledButton>Зарууд</StyledButton>
+                    <Button type="primary" shape="round">
+                        Зар
+                    </Button>
                 </Link>
                 <Link to="/jobs/table" className="navbar-item">
                     Table

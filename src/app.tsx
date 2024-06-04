@@ -10,7 +10,6 @@ import EditJobPage from './pages/edit-job-page.tsx';
 import { getLoggedUserFromToken } from './pages/lib/authentication';
 import { ApolloProvider } from '@apollo/client';
 import { clientApollo } from './graphql/query';
-import Table from './pages/table';
 
 type User = {
     companyId: string;
@@ -28,7 +27,6 @@ function App() {
             <main className="section">
                 <Routes>
                     <Route index path="/" element={<HomePage />} />
-                    <Route index path="/jobs/table" element={<Table />} />
                     <Route index path="/jobs/new" element={<CreateJobPage />} />
                     <Route
                         path="/jobs/:jobId"

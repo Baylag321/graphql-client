@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from './lib/authentication.tsx';
+import { UserOutlined, UnlockOutlined } from '@ant-design/icons';
+import { Button, Input } from 'antd';
 
 type User = {
     companyId: string;
@@ -39,47 +41,29 @@ export default function LoginPage({ setLoggedUser }: LoginPageProps) {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div className="field">
-                    <div className="label">Email</div>
-                    <div className="control">
-                        <input
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="input"
-                            required
-                            value={email}
-                        />
-                    </div>
-                </div>
+        <>
+            <Input
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Нэвтрэх нэр"
+                prefix={<UserOutlined />}
+                className="mb-4"
+            />
+            <Input.Password
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Нууц үг"
+                prefix={<UnlockOutlined />}
+                className="mb-4"
+            />
 
-                <div className="field">
-                    <div className="label">Password</div>
-                    <div className="control">
-                        <input
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="input"
-                            type="password"
-                            required
-                            value={password}
-                        />
-                    </div>
+            {error && (
+                <div className="has-text-danger">
+                    Email or password is incorrect
                 </div>
+            )}
 
-                {error && (
-                    <div className="has-text-danger">
-                        Email or password is incorrect
-                    </div>
-                )}
-
-                <div className="field">
-                    <div className="control">
-                        <button className="button is-link" type="submit">
-                            Login
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            <Button type="primary" shape="round" onClick={handleSubmit}>
+                Нэвтрэх
+            </Button>
+        </>
     );
 }
