@@ -12,7 +12,7 @@ interface LoginPageProps {
 }
 
 export default function LoginPage({ setLoggedUser }: LoginPageProps) {
-    const [email, setEmail] = useState('bayalag.t@example.com');
+    const [email, setEmail] = useState('bayalag.t');
     const [password, setPassword] = useState('HyperX23');
     const [error, setError] = useState(false);
 
@@ -47,7 +47,6 @@ export default function LoginPage({ setLoggedUser }: LoginPageProps) {
                         <input
                             onChange={(e) => setEmail(e.target.value)}
                             className="input"
-                            type="email"
                             required
                             value={email}
                         />
