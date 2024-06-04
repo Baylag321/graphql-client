@@ -7,10 +7,10 @@ import Navbar from './pages/components/navbar';
 import CreateJobPage from './pages/create-job-page';
 import LoginPage from './pages/login-page';
 import EditJobPage from './pages/edit-job-page.tsx';
-import { getLoggedUserFromToken } from './pages/lib/authentication.tsx';
+import { getLoggedUserFromToken } from './pages/lib/authentication';
 import { ApolloProvider } from '@apollo/client';
-import { clientApollo } from './graphql/query.ts';
-import Table from './pages/table.tsx';
+import { clientApollo } from './graphql/query';
+import Table from './pages/table';
 
 type User = {
     companyId: string;

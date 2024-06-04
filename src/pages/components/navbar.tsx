@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import StyledButton from '../../components/Button/Button';
+import StyledButton from '../common-components/Button/Button';
 
 interface User {
     companyId: string;

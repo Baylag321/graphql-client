@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from './lib/authentication.tsx';
 
+type User = {
+    companyId: string;
+    email: string;
+};
+
 interface LoginPageProps {
-    setLoggedUser: (user: { emp_id: string; loginName: string }) => void;
+    setLoggedUser: (user: User | null) => void;
 }
 
 export default function LoginPage({ setLoggedUser }: LoginPageProps) {
-    const [loginName, setLoginName] = useState('bayalag.t');
+    const [email, setEmail] = useState('bayalag.t@example.com');
     const [password, setPassword] = useState('HyperX23');
     const [error, setError] = useState(false);
 
@@ -17,7 +22,7 @@ export default function LoginPage({ setLoggedUser }: LoginPageProps) {
         e.preventDefault();
 
         try {
-            const user = await login(loginName, password);
+            const user = await login(email, password);
 
             if (user) {
                 setError(false);
@@ -37,20 +42,20 @@ export default function LoginPage({ setLoggedUser }: LoginPageProps) {
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="field">
-                    <div className="label">Нэвтрэх нэр</div>
+                    <div className="label">Email</div>
                     <div className="control">
                         <input
-                            onChange={(e) => setLoginName(e.target.value)}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="input"
-                            type="emial"
+                            type="email"
                             required
-                            value={loginName}
+                            value={email}
                         />
                     </div>
                 </div>
 
                 <div className="field">
-                    <div className="label">Нууц үг</div>
+                    <div className="label">Password</div>
                     <div className="control">
                         <input
                             onChange={(e) => setPassword(e.target.value)}
@@ -64,14 +69,14 @@ export default function LoginPage({ setLoggedUser }: LoginPageProps) {
 
                 {error && (
                     <div className="has-text-danger">
-                        Имэйл эсвэл нууц үг буруу байна
+                        Email or password is incorrect
                     </div>
                 )}
 
                 <div className="field">
                     <div className="control">
                         <button className="button is-link" type="submit">
-                            Нэвтрэх
+                            Login
                         </button>
                     </div>
                 </div>

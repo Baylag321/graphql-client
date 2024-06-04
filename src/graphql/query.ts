@@ -97,17 +97,23 @@ export const GET_COMPANY_BY_ID = gql`
     }
 `;
 
-export const GET_JOBS = gql`
-    query getJobs {
-        jobs {
+export const GET_AI_FLIGHTS = gql`
+    query Ai_flights {
+        ai_flights {
+            FLIGHTDATE
+            FLIGHT_ID
+            NARYAD_ID
+        }
+    }
+`;
+
+export const GET_TRN_LESSONS = gql`
+    query Trn_lessons {
+        trn_lessons {
             ID
-            TITLE
-            DESCRIPTION
-            DATE
-            COMPANY {
-                NAME
-                DESCRIPTION
-            }
+            TRN_ID
+            FILENAME
+            EMP_ID
         }
     }
 `;
