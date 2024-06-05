@@ -13,7 +13,7 @@ export default function HomePage() {
 
     return (
         <div>
-            <h1 className="title">Ажлын зар</h1>
+            <h1 className="">Ажлын зар</h1>
             <JobList trn_lessons={trn_lessons} />
         </div>
     );

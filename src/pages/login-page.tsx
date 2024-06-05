@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from './lib/authentication.tsx';
 import { UserOutlined, UnlockOutlined } from '@ant-design/icons';
-import { Button, Input } from 'antd';
+import { Button, Input, Checkbox } from 'antd';
 
 type User = {
     companyId: string;
@@ -42,28 +42,44 @@ export default function LoginPage({ setLoggedUser }: LoginPageProps) {
 
     return (
         <>
-            <Input
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Нэвтрэх нэр"
-                prefix={<UserOutlined />}
-                className="mb-4"
-            />
-            <Input.Password
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Нууц үг"
-                prefix={<UnlockOutlined />}
-                className="mb-4"
-            />
+            <div className="flex flex-row bg-red-400">
+                <div className="w-1/3 bg-teal-300">Hello World</div>
+                <div className="w-1/3 border p-10 rounded-[15px] bg-white">
+                    <Input
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Нэвтрэх нэр"
+                        prefix={<UserOutlined />}
+                        className="mb-4"
+                        value={email}
+                    />
+                    <Input.Password
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Нууц үг"
+                        prefix={<UnlockOutlined />}
+                        className="mb-4"
+                        value={password}
+                    />
 
-            {error && (
-                <div className="has-text-danger">
-                    Email or password is incorrect
+                    {error && (
+                        <div className="has-text-danger mb-4">
+                            Нэвтрэх нэр нууц үг буруу байна.
+                        </div>
+                    )}
+
+                    <div className="flex flex-col">
+                        <Checkbox>Нэвтрэх нэр сануулах</Checkbox>
+
+                        <Button
+                            type="primary"
+                            shape="round"
+                            onClick={handleSubmit}
+                            className="w-[80px] mt-4 justify-center"
+                        >
+                            Нэвтрэх
+                        </Button>
+                    </div>
                 </div>
-            )}
-
-            <Button type="primary" shape="round" onClick={handleSubmit}>
-                Нэвтрэх
-            </Button>
+            </div>
         </>
     );
 }
