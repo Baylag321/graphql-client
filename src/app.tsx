@@ -1,5 +1,5 @@
 import HomePage from './pages/home-page';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import JobPage from './pages/job-page';
 import CompanyPage from './pages/company-pages';
 import { useState } from 'react';
@@ -10,6 +10,8 @@ import EditJobPage from './pages/edit-job-page.tsx';
 import { getLoggedUserFromToken } from './pages/lib/authentication';
 import { ApolloProvider } from '@apollo/client';
 import { clientApollo } from './graphql/query';
+import '../src/assets/styles/app.scss';
+import PrivateRoute from './pages/components/private-route.tsx'; // Import the PrivateRoute component
 
 type User = {
     companyId: string;
@@ -23,26 +25,48 @@ function App() {
 
     return (
         <ApolloProvider client={clientApollo}>
-            <Navbar loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
-            <main className="section">
+            {loggedUser && (
+                <Navbar loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
+            )}
+            <main>
                 <Routes>
-                    <Route index path="/" element={<HomePage />} />
-                    <Route index path="/jobs/new" element={<CreateJobPage />} />
+                    <Route
+                        path="/login"
+                        element={<LoginPage setLoggedUser={setLoggedUser} />}
+                    />
+                    <Route
+                        path="/"
+                        element={
+                            loggedUser ? <HomePage /> : <Navigate to="/login" />
+                        }
+                    />
+                    <Route
+                        path="/jobs/new"
+                        element={
+                            <PrivateRoute isAuthenticated={!!loggedUser}>
+                                <CreateJobPage />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route
                         path="/jobs/:jobId"
-                        element={<JobPage loggedUser={loggedUser} />}
+                        element={
+                            <PrivateRoute isAuthenticated={!!loggedUser}>
+                                <JobPage loggedUser={loggedUser} />
+                            </PrivateRoute>
+                        }
                     />
                     <Route
                         path="/jobs/edit/:jobId"
-                        element={<EditJobPage loggedUser={loggedUser} />}
+                        element={
+                            <PrivateRoute isAuthenticated={!!loggedUser}>
+                                <EditJobPage loggedUser={loggedUser} />
+                            </PrivateRoute>
+                        }
                     />
                     <Route
                         path="/company/:companyId"
                         element={<CompanyPage />}
-                    />
-                    <Route
-                        path="/login"
-                        element={<LoginPage setLoggedUser={setLoggedUser} />}
                     />
                 </Routes>
             </main>

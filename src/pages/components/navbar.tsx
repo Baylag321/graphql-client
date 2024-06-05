@@ -22,19 +22,19 @@ export default function Navbar({ loggedUser, setLoggedUser }: NavbarProps) {
 
     return (
         <nav className="navbar">
-            <div className="navbar-start">
-                <Link to="/" className="navbar-item">
-                    <Button type="primary" shape="round">
-                        Зар
-                    </Button>
-                </Link>
-                <Link to="/jobs/table" className="navbar-item">
-                    Table
-                </Link>
-            </div>
-            <div className="navbar-end">
-                {isLoggedIn ? (
-                    <>
+            {isLoggedIn ? (
+                <>
+                    <div className="navbar-start">
+                        <Link to="/" className="navbar-item">
+                            <Button type="primary" shape="round">
+                                Зар
+                            </Button>
+                        </Link>
+                        <Link to="/jobs/table" className="navbar-item">
+                            Table
+                        </Link>
+                    </div>
+                    <div className="navbar-end">
                         <span className="navbar-item has-text-gray">
                             {loggedUser?.email}
                         </span>
@@ -47,15 +47,11 @@ export default function Navbar({ loggedUser, setLoggedUser }: NavbarProps) {
                         <a onClick={handleLogout} className="navbar-item">
                             Гарах
                         </a>
-                    </>
-                ) : (
-                    <>
-                        <Link to="/login" className="navbar-item">
-                            Нэвтрэх
-                        </Link>
-                    </>
-                )}
-            </div>
+                    </div>
+                </>
+            ) : (
+                <></>
+            )}
         </nav>
     );
 }
