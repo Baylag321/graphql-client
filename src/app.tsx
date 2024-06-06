@@ -11,7 +11,6 @@ import { ApolloProvider } from '@apollo/client';
 import { clientApollo } from './graphql/query';
 import '../src/assets/styles/app.scss';
 import PrivateRoute from './pages/components/private-route.tsx';
-import Sidebar, { SidebarItem } from './pages/components/Sidebar.tsx';
 import {
     LayoutDashboard,
     Home,
