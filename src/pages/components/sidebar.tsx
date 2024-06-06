@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import controlImg from '../../assets/agent/sidebar/control.png';
-import logoImg from '../../assets/agent/sidebar/logo.png';
-import chartImg from '../../assets/agent/sidebar/Chart.png';
-import calendarImg from '../../assets/agent/sidebar/Calendar.png';
+import controlImg from '../../assets/agent/images/control.png';
+import logoImg from '../../assets/agent/images/logo.png';
+import chartImg from '../../assets/agent/images/Chart.png';
+import calendarImg from '../../assets/agent/images/Calendar.png';
 
 const Sidebar = () => {
     const [open, setOpen] = useState(false);
@@ -20,12 +20,12 @@ const Sidebar = () => {
     return (
         <div className="flex">
             <div
-                className={`${open ? 'w-72' : 'w-20'} duration-300 h-screen p-5 pt-8 bg-dark-blue relative`}
+                className={`${open ? 'w-64' : 'w-20'} duration-300 h-screen p-2 pt-8 bg-blue-800 relative`}
             >
                 <img
                     src={controlImg}
                     alt="control"
-                    className={`absolute cursor-pointer rounded-full -right-3 top-9 w-7 border-2 border-dark-blue ${!open && 'rotate-180'}`}
+                    className={`absolute cursor-pointer rounded-full -right-3 top-9 w-7 border-2 border-blue-800 ${!open && 'rotate-180'}`}
                     onClick={() => setOpen(!open)}
                 />
                 <div className="flex gap-x-4 items-center">
@@ -42,7 +42,7 @@ const Sidebar = () => {
                 <ul className="pt-6">
                     {Menus.map((menu, index) => (
                         <li
-                            className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${menu.gap ? 'mt-9' : 'mt-2'} ${index === 0 && 'bg-light-white'}`}
+                            className={`text-gray-300 text-sm flex items-center gap-x-2 cursor-pointer p-2 hover:bg-light-white rounded-md ${menu.gap ? 'mt-7' : 'mt-2'} ${index === 0 && 'bg-light-white'}`}
                             key={index}
                         >
                             <img

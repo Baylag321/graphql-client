@@ -12,6 +12,7 @@ import { ApolloProvider } from '@apollo/client';
 import { clientApollo } from './graphql/query';
 import '../src/assets/styles/app.scss';
 import PrivateRoute from './pages/components/private-route.tsx'; // Import the PrivateRoute component
+import Sidebar from './pages/components/sidebar.tsx';
 
 type User = {
     companyId: string;
@@ -26,7 +27,13 @@ function App() {
     return (
         <ApolloProvider client={clientApollo}>
             {loggedUser && (
-                <Navbar loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
+                <>
+                    <Navbar
+                        loggedUser={loggedUser}
+                        setLoggedUser={setLoggedUser}
+                    />
+                    <Sidebar />
+                </>
             )}
             <main>
                 <Routes>
