@@ -1,57 +1,48 @@
-import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
 
-interface User {
-    companyId: string;
-    email: string;
-}
-
-interface NavbarProps {
-    loggedUser: User | null;
-    setLoggedUser: (user: User | null) => void;
-}
-
-export default function Navbar({ loggedUser, setLoggedUser }: NavbarProps) {
-    const isLoggedIn = loggedUser;
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        setLoggedUser(null);
-        navigate('/login');
-        localStorage.removeItem('token');
-    };
+export default function Navbar() {
+    function onToggleMenu(e: any) {
+        const navLinks = document.querySelector('.nav-links');
+        if (!navLinks) return;
+        e.name = e.name === 'menu' ? 'close' : 'menu';
+        navLinks.classList.toggle('top-[-9%]');
+    }
 
     return (
-        <nav className="navbar">
-            {isLoggedIn ? (
-                <>
-                    <div className="navbar-start">
-                        <Link to="/" className="navbar-item">
-                            <Button type="primary" shape="round">
-                                Зар
-                            </Button>
-                        </Link>
-                        <Link to="/jobs/table" className="navbar-item">
-                            Table
-                        </Link>
-                    </div>
-                    <div className="navbar-end">
-                        <span className="navbar-item has-text-gray">
-                            {loggedUser?.email}
-                        </span>
-                        <Link to="/jobs/new" className="navbar-item">
-                            Зар нэмэх
-                        </Link>
-                        <Link to="/jobs/table" className="navbar-item">
-                            Table
-                        </Link>
-                        <a onClick={handleLogout} className="navbar-item">
-                            Гарах
-                        </a>
-                    </div>
-                </>
-            ) : (
-                <></>
-            )}
-        </nav>
+        <header className="bg-white">
+            <nav className="flex justify-between items-center w-[92%] mx-auto">
+                <div></div>
+                <div className="nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto  w-full flex items-center px-5">
+                    <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
+                        <li>
+                            <a href="#">Products</a>
+                        </li>
+                        <li>
+                            <a href="#">Products</a>
+                        </li>
+                        <li>
+                            <a href="#">Products</a>
+                        </li>
+                        <li>
+                            <a href="#">Products</a>
+                        </li>
+                        <li>
+                            <a href="#">Products</a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="flex items-center gap-6">
+                    <Button type="primary" shape="round">
+                        Sign up
+                    </Button>
+                    <MenuOutlined
+                        className="text-3xl cursor-pointer md:hidden"
+                        name="menu"
+                        onClick={onToggleMenu}
+                    />
+                </div>
+            </nav>
+        </header>
     );
 }
