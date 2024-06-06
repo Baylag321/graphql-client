@@ -2,6 +2,9 @@ import { ChevronFirst, ChevronLast, MoreVertical } from 'lucide-react';
 import logo from '../../assets/agent/images/MIATLogo.jpg';
 import profile from '../../assets/agent/images/MIAT Circle Logo PNG.png';
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { Button } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 // Define the type for the context value
 interface SidebarContextValue {
@@ -11,17 +14,35 @@ interface SidebarContextValue {
 // Provide a default value for the context
 const SidebarContext = createContext<SidebarContextValue>({ expanded: true });
 
-interface SidebarProps {
-    children: ReactNode;
+interface User {
+    companyId: string;
+    email: string;
 }
 
-export default function Sidebar({ children }: SidebarProps) {
+interface SidebarProps {
+    children?: ReactNode;
+    loggedUser?: User | null;
+    setLoggedUser?: (user: User | null) => void;
+}
+
+export default function Sidebar({ children, setLoggedUser }: SidebarProps) {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        if (setLoggedUser) {
+            setLoggedUser(null);
+        }
+        navigate('/login');
+        localStorage.removeItem('token');
+    };
+
     const [expanded, setExpanded] = useState(true);
     return (
         <aside className="h-screen">
             <nav className="h-full flex flex-col bg-white border-r shadow-sm">
                 <div className="p-4 pb-2 flex justify-between items-center">
                     <img
+                        alt="logo"
                         src={logo}
                         className={`overflow-hidden transition-all ${expanded ? 'w-32' : 'w-0'}`}
                     />
@@ -37,8 +58,26 @@ export default function Sidebar({ children }: SidebarProps) {
                     <ul className="flex-1 px-3">{children}</ul>
                 </SidebarContext.Provider>
 
+                <div
+                    className={`flex justify-center items-center overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'}`}
+                >
+                    <Button
+                        onClick={handleLogout}
+                        type="primary"
+                        shape="round"
+                        className="w-[120px] mb-4"
+                        icon={<LogoutOutlined />}
+                    >
+                        Гарах
+                    </Button>
+                </div>
                 <div className="border-t flex p-3">
-                    <img src={profile} className="w-10 h-10 rounded-md" />
+                    <img
+                        alt="profile"
+                        src={profile}
+                        className="w-10 h-10 rounded-md"
+                    />
+
                     <div
                         className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'}`}
                     >
