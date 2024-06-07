@@ -11,7 +11,7 @@ import { ApolloProvider } from '@apollo/client';
 import { clientApollo } from './graphql/query';
 import '../src/assets/styles/app.scss';
 import PrivateRoute from './pages/components/private-route.tsx'; // Import the PrivateRoute component
-import Sidebar from './pages/components/sidebar.tsx';
+import Sidebar from './pages/components/sidebar-menu.tsx';
 
 type User = {
     companyId: string;
