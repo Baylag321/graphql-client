@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import controlImg from '../../assets/agent/sidebar/control.png';
-import logoImg from '../../assets/agent/sidebar/logo.png';
-import chartImg from '../../assets/agent/sidebar/Chart.png';
-import calendarImg from '../../assets/agent/sidebar/Calendar.png';
+import controlImg from '../../assets/agent/images/control.png';
+import logoImg from '../../assets/agent/images/logo.png';
+import chartImg from '../../assets/agent/images/Chart.png';
+import calendarImg from '../../assets/agent/images/Calendar.png';
 
 const Sidebar = () => {
     const [open, setOpen] = useState(false);
