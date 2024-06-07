@@ -20,12 +20,12 @@ const Sidebar = () => {
     return (
         <div className="flex">
             <div
-                className={`${open ? 'w-72' : 'w-20'} duration-300 h-screen p-5 pt-8 bg-dark-blue relative`}
+                className={`${open ? 'w-72' : 'w-20'} duration-300 h-screen p-5 pt-8 bg-blue-800 relative`}
             >
                 <img
                     src={controlImg}
                     alt="control"
-                    className={`absolute cursor-pointer rounded-full -right-3 top-9 w-7 border-2 border-dark-blue ${!open && 'rotate-180'}`}
+                    className={`absolute cursor-pointer rounded-full -right-3 top-9 w-7 border-2 border-blue-800 ${!open && 'rotate-180'}`}
                     onClick={() => setOpen(!open)}
                 />
                 <div className="flex gap-x-4 items-center">
